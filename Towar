@@ -1,0 +1,86 @@
+package sklep.model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+
+/**
+ * The persistent class for the towary database table.
+ * 
+ */
+@Entity
+@Table(name="towary")
+@NamedQuery(name="Towar.findAll", query="SELECT t FROM Towar t")
+public class Towar implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@SequenceGenerator(name="TOWARY_IDTOWARU_GENERATOR", sequenceName="TOWARY_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TOWARY_IDTOWARU_GENERATOR")
+	@Column(name="id_towaru")
+	private Integer idTowaru;
+
+	@Column(name="cena_brutto")
+	private BigDecimal cenaBrutto;
+
+	private String nazwa;
+
+	private String opis;
+
+	private Integer stan;
+
+	private BigDecimal vat;
+
+	public Towar() {
+	}
+
+	public Integer getIdTowaru() {
+		return this.idTowaru;
+	}
+
+	public void setIdTowaru(Integer idTowaru) {
+		this.idTowaru = idTowaru;
+	}
+
+	public BigDecimal getCenaBrutto() {
+		return this.cenaBrutto;
+	}
+
+	public void setCenaBrutto(BigDecimal cenaBrutto) {
+		this.cenaBrutto = cenaBrutto;
+	}
+
+	public String getNazwa() {
+		return this.nazwa;
+	}
+
+	public void setNazwa(String nazwa) {
+		this.nazwa = nazwa;
+	}
+
+	public String getOpis() {
+		return this.opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+	public Integer getStan() {
+		return this.stan;
+	}
+
+	public void setStan(Integer stan) {
+		this.stan = stan;
+	}
+
+	public BigDecimal getVat() {
+		return this.vat;
+	}
+
+	public void setVat(BigDecimal vat) {
+		this.vat = vat;
+	}
+
+}
