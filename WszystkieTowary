@@ -1,0 +1,49 @@
+package serwlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import sklep.model.Towar;
+
+/**
+ * Servlet implementation class WszystkieTowaryJpa
+ */
+@WebServlet("/WszystkieTowaryJpa")
+public class WszystkieTowaryJpa extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@PersistenceUnit
+	private EntityManagerFactory emf;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<html><body>");
+		
+		EntityManager em = emf.createEntityManager();
+		
+		List<Towar> wyniki = em.createNamedQuery("Towar.findAll", Towar.class).getResultList();
+		
+		out.println("<ul>");
+		for(Towar t : wyniki) {
+			out.printf("<li>%s %.2f <i>%s</i></li>%n", t.getNazwa(), t.getCenaBrutto(), t.getOpis());
+		}
+		out.println("</ul>");
+		
+		out.println("</body></html>");
+		em.close();
+		out.close();
+	}
+}
