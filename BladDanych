@@ -1,0 +1,20 @@
+package jsf;
+
+public class BladDanych extends Exception {
+
+	public BladDanych() {
+		super();
+	}
+
+	public BladDanych(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public BladDanych(String message) {
+		super(message);
+	}
+
+	public BladDanych(Throwable cause) {
+		super(cause);
+	}
+}
