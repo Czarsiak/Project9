@@ -1,0 +1,67 @@
+package sklep.model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the elementy_zamowien database table.
+ * 
+ */
+@Entity
+@Table(name="elementy_zamowien")
+@NamedQuery(name="ElementZamowienia.findAll", query="SELECT e FROM ElementZamowienia e")
+public class ElementZamowienia implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	private ElementZamowieniaPK id;
+
+	private Integer ilosc;
+
+	//uni-directional many-to-one association to Towar
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_towaru")
+	private Towar towar;
+
+	//bi-directional many-to-one association to Zamowienie
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_zamowienia")
+	private Zamowienie zamowienie;
+
+	public ElementZamowienia() {
+	}
+
+	public ElementZamowieniaPK getId() {
+		return this.id;
+	}
+
+	public void setId(ElementZamowieniaPK id) {
+		this.id = id;
+	}
+
+	public Integer getIlosc() {
+		return this.ilosc;
+	}
+
+	public void setIlosc(Integer ilosc) {
+		this.ilosc = ilosc;
+	}
+
+	public Towar getTowar() {
+		return this.towar;
+	}
+
+	public void setTowar(Towar towar) {
+		this.towar = towar;
+	}
+
+	public Zamowienie getZamowienie() {
+		return this.zamowienie;
+	}
+
+	public void setZamowienie(Zamowienie zamowienie) {
+		this.zamowienie = zamowienie;
+	}
+
+}
