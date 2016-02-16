@@ -1,0 +1,137 @@
+package sklep.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+
+/**
+ * The persistent class for the zamowienia database table.
+ * 
+ */
+@Entity
+@Table(name="zamowienia")
+@NamedQuery(name="Zamowienie.findAll", query="SELECT z FROM Zamowienie z")
+public class Zamowienie implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@SequenceGenerator(name="ZAMOWIENIA_IDZAMOWIENIA_GENERATOR", sequenceName="ZAMOWIENIA_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ZAMOWIENIA_IDZAMOWIENIA_GENERATOR")
+	@Column(name="id_zamowienia")
+	private Integer idZamowienia;
+
+	@Column(name="data_zlozenia")
+	private Timestamp dataZlozenia;
+
+	@Column(name="do_zaplaty")
+	private BigDecimal doZaplaty;
+
+	@Column(name="kod_pocztowy")
+	private String kodPocztowy;
+
+	private String miasto;
+
+	private String odbiorca;
+
+	@Column(name="ulica_i_numer")
+	private String ulicaINumer;
+
+	//bi-directional many-to-one association to ElementZamowienia
+	@OneToMany(mappedBy="zamowienie")
+	private List<ElementZamowienia> elementyZamowienia = new LinkedList<>();
+
+	public Zamowienie() {
+	}
+
+	public Integer getIdZamowienia() {
+		return this.idZamowienia;
+	}
+
+	public void setIdZamowienia(Integer idZamowienia) {
+		this.idZamowienia = idZamowienia;
+	}
+
+	public Timestamp getDataZlozenia() {
+		return this.dataZlozenia;
+	}
+
+	public void setDataZlozenia(Timestamp dataZlozenia) {
+		this.dataZlozenia = dataZlozenia;
+	}
+
+	public BigDecimal getDoZaplaty() {
+		return this.doZaplaty;
+	}
+
+	public void setDoZaplaty(BigDecimal doZaplaty) {
+		this.doZaplaty = doZaplaty;
+	}
+
+	public String getKodPocztowy() {
+		return this.kodPocztowy;
+	}
+
+	public void setKodPocztowy(String kodPocztowy) {
+		this.kodPocztowy = kodPocztowy;
+	}
+
+	public String getMiasto() {
+		return this.miasto;
+	}
+
+	public void setMiasto(String miasto) {
+		this.miasto = miasto;
+	}
+
+	public String getOdbiorca() {
+		return this.odbiorca;
+	}
+
+	public void setOdbiorca(String odbiorca) {
+		this.odbiorca = odbiorca;
+	}
+
+	public String getUlicaINumer() {
+		return this.ulicaINumer;
+	}
+
+	public void setUlicaINumer(String ulicaINumer) {
+		this.ulicaINumer = ulicaINumer;
+	}
+
+	public List<ElementZamowienia> getElementyZamowienia() {
+		return this.elementyZamowienia;
+	}
+
+	public void setElementyZamowienia(List<ElementZamowienia> elementyZamowienia) {
+		this.elementyZamowienia = elementyZamowienia;
+	}
+
+	public ElementZamowienia addElementyZamowienia(ElementZamowienia elementyZamowienia) {
+		getElementyZamowienia().add(elementyZamowienia);
+		elementyZamowienia.setZamowienie(this);
+
+		return elementyZamowienia;
+	}
+
+	public ElementZamowienia removeElementyZamowienia(ElementZamowienia elementyZamowienia) {
+		getElementyZamowienia().remove(elementyZamowienia);
+		elementyZamowienia.setZamowienie(null);
+
+		return elementyZamowienia;
+	}
+
+}
