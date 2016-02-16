@@ -1,0 +1,57 @@
+package jsf;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import sklep.model.ElementKoszyka;
+
+@ManagedBean(name="koszyk")
+@SessionScoped
+public class Koszyk {
+
+	private int ileSztuk = 1;
+	
+	public int getIleSztuk() {
+		return ileSztuk;
+	}
+
+	public void setIleSztuk(int ileSztuk) {
+		this.ileSztuk = ileSztuk;
+	}
+
+	private Map<Integer, ElementKoszyka> towary = new HashMap<>();
+	
+	/** Dodaje jednÄ… sztuke towaru do koszyka.
+	 * @param idTowaru bazodanowe id towaru
+	 */
+	public void dodaj(Integer idTowaru, String nazwa) {
+		this.dodaj(idTowaru, nazwa, ileSztuk);
+	}
+	
+	/** Dodaje podanÄ… liczbÄ™ sztuk towaru do koszyka.
+	 * @param idTowaru bazodanowe id towaru
+	 * @param ileSztuk liczba sztuk do dodania
+	 */
+	public void dodaj(Integer idTowaru, String nazwa, int ileSztuk) {
+		System.out.printf("DodajÄ™ %d sztuk towaru %d%n", ileSztuk, idTowaru);
+		
+		ElementKoszyka ileBylo = towary.get(idTowaru);
+		if(ileBylo == null) {
+			ElementKoszyka e = new ElementKoszyka(idTowaru, ileSztuk, nazwa);
+			towary.put(idTowaru, e);
+		} else {
+			ileBylo.zwieksz(ileSztuk);
+			towary.put(idTowaru, ileBylo);
+		}
+	}
+	
+	public List<ElementKoszyka> getZawartoscKoszyka() {
+		return new ArrayList<>(towary.values());
+	}
+	
+}
