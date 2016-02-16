@@ -1,0 +1,57 @@
+package sklep.model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+/**
+ * The primary key class for the elementy_zamowien database table.
+ * 
+ */
+@Embeddable
+public class ElementZamowieniaPK implements Serializable {
+	//default serial version id, required for serializable classes.
+	private static final long serialVersionUID = 1L;
+
+	@Column(name="id_towaru", insertable=false, updatable=false)
+	private Integer idTowaru;
+
+	@Column(name="id_zamowienia", insertable=false, updatable=false)
+	private Integer idZamowienia;
+
+	public ElementZamowieniaPK() {
+	}
+	public Integer getIdTowaru() {
+		return this.idTowaru;
+	}
+	public void setIdTowaru(Integer idTowaru) {
+		this.idTowaru = idTowaru;
+	}
+	public Integer getIdZamowienia() {
+		return this.idZamowienia;
+	}
+	public void setIdZamowienia(Integer idZamowienia) {
+		this.idZamowienia = idZamowienia;
+	}
+
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof ElementZamowieniaPK)) {
+			return false;
+		}
+		ElementZamowieniaPK castOther = (ElementZamowieniaPK)other;
+		return 
+			this.idTowaru.equals(castOther.idTowaru)
+			&& this.idZamowienia.equals(castOther.idZamowienia);
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + this.idTowaru.hashCode();
+		hash = hash * prime + this.idZamowienia.hashCode();
+		
+		return hash;
+	}
+}
