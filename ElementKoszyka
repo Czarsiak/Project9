@@ -1,0 +1,54 @@
+package sklep.model;
+
+public class ElementKoszyka {
+	private Integer idTowaru;
+	
+	private int ileSztuk;
+	
+	private String nazwa;
+
+
+	public ElementKoszyka() {
+		super();
+	}
+
+	public ElementKoszyka(Integer idTowaru, int ileSztuk, String nazwa) {
+		super();
+		this.idTowaru = idTowaru;
+		this.ileSztuk = ileSztuk;
+		this.nazwa = nazwa;
+	}
+
+	public Integer getIdTowaru() {
+		return idTowaru;
+	}
+
+	public void setIdTowaru(Integer idTowaru) {
+		this.idTowaru = idTowaru;
+	}
+
+	public int getIleSztuk() {
+		return ileSztuk;
+	}
+
+	public void setIleSztuk(int ileSztuk) {
+		this.ileSztuk = ileSztuk;
+	}
+
+	public String getNazwa() {
+		return nazwa;
+	}
+
+	public void setNazwa(String nazwa) {
+		this.nazwa = nazwa;
+	}
+	
+	public void zwieksz(int ile) {
+		ileSztuk += ile;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s (%d) - %d sztuk", nazwa, idTowaru, ileSztuk);
+	}
+}
